@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Enigma</title>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Digite a senha abaixo</h1>
+
+      <form
+        onsubmit="event.preventDefault(); handleSubmit();"
+        aria-label="Formulário de senha"
+      >
+        <div class="field" role="group" aria-labelledby="senhaLabel">
+          <label
+            id="senhaLabel"
+            for="senha"
+            style="
+              position: absolute;
+              left: -9999px;
+              top: auto;
+              width: 1px;
+              height: 1px;
+              overflow: hidden;
+            "
+            >Senha</label
+          >
+          <input
+            id="senha"
+            name="senha"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <div
+          style="
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <button class="submit" type="submit">Entrar</button>
+        </div>
+
+        <!-- <p class="hint">Dica: O dia do nosso primeiro beijo eu nunca esquecerei</p> -->
+      </form>
+    </main>
+
+    <button onclick="handleHint()" class="dica" type="submit">Dica</button>
+
+    <script src="script.js"></script>
+  </body>
+</html>
