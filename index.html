@@ -8,7 +8,7 @@
   </head>
   <body>
     <main class="card">
-      <h1>Digite a senha abaixo</h1>
+      <h1>Digite a senha, tente abaixo</h1>
 
       <form
         onsubmit="event.preventDefault(); handleSubmit();"
@@ -52,7 +52,8 @@
       </form>
     </main>
 
-    <button onclick="handleHint()" class="dica" type="submit">Dica</button>
+    <!-- <button onclick="handleHint()" class="dica" type="submit">Dica</button> -->
+    <button onclick="redirecionar()" class="dica" type="submit">Dica</button>
 
     <script src="script.js"></script>
   </body>

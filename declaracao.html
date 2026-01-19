@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Eu te amo ❤️</title>
+
+    <!-- Fonte romântica -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+
+        /* COR INICIAL */
+        background: rgb(63, 64, 66);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: "Poppins", sans-serif;
+        padding: 30px;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+
+        background: linear-gradient(180deg, rgb(63, 64, 66), #d80032);
+
+        opacity: 0;
+        animation: gradientFade 20s ease-in-out forwards;
+      }
+
+      @keyframes gradientFade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      h1 {
+        font-family: "Great Vibes", cursive;
+        font-size: 64px;
+        margin-bottom: 20px;
+        color: #c9184a;
+      }
+
+      /* CARROSSEL */
+      .carousel {
+        width: 420px;
+        height: 460px;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        position: relative;
+        margin-bottom: 25px;
+      }
+
+      .carousel-track {
+        display: flex;
+        height: 100%;
+        transition: transform 0.8s ease-in-out; /* ✨ ANIMAÇÃO SUAVE */
+      }
+
+      .carousel-track img {
+        width: 420px;
+        height: 460px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+
+      /* ====================
+   BOLINHAS
+   ==================== */
+      .dots {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 25px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .dot.active {
+        background: #c9184a;
+        transform: scale(1.3);
+      }
+
+      /* melhora o swipe */
+      .carousel {
+        touch-action: pan-y;
+        cursor: grab;
+      }
+
+      .carousel:active {
+        cursor: grabbing;
+      }
+
+      /* CONTADOR */
+      .contador {
+        background: rgba(255, 255, 255, 0.85);
+        padding: 25px 35px;
+        border-radius: 25px;
+        text-align: center;
+        font-size: 22px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        margin-bottom: 25px;
+      }
+
+      .contador span {
+        display: block;
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 400;
+      }
+
+      /* TEXTO LIVRE */
+      .texto-livre {
+        width: 25vw;
+      }
+
+      .texto-livre p {
+        width: 100%;
+        height: 100%;
+        border-radius: 18px;
+        border: none;
+        padding: 18px;
+        margin-bottom: 500px;
+        font-size: 16px;
+        resize: none;
+        font-family: "Poppins", sans-serif;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        outline: none;
+        background: rgba(255, 255, 255, 0.85);
+      }
+
+      /* CORAÇÕES FLUTUANDO */
+      .heart {
+        position: fixed;
+        bottom: -20px;
+        font-size: 60px;
+        animation: floatUp 6s linear infinite;
+        opacity: 0.7;
+      }
+
+      @keyframes floatUp {
+        from {
+          transform: translateY(0);
+          opacity: 0.7;
+        }
+        to {
+          transform: translateY(-110vh);
+          opacity: 0;
+        }
+      }
+
+      /* ====================
+           ANIMAÇÃO PULSANTE (Adicionada)
+           ==================== */
+      @keyframes pulso {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); /* Sombra inicial verde (cor do botão) */
+        }
+        70% {
+          transform: scale(1.05); /* Cresce ligeiramente */
+          box-shadow: 0 0 0 15px rgba(76, 175, 80, 0); /* A sombra se expande e fica transparente */
+        }
+        100% {
+          transform: scale(1); /* Volta ao tamanho normal */
+          box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+        }
+      }
+
+      /* ====================
+           CSS Pedido
+           ==================== */
+
+      .container {
+        text-align: center;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        height: 500px;
+        width: 60vw;
+        margin-bottom: 180px;
+      }
+
+      h1 {
+        color: #e91e63; /* Vermelho/Rosa forte */
+        font-size: 3em;
+        margin-bottom: 30px;
+      }
+
+      .botoes {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 200px;
+        padding-top: 100px;
+        gap: 50px; /* Espaçamento entre os botões */
+        position: relative; /* Para o botão 'não' se mover dentro do container */
+        height: 100px; /* Espaço para o botão 'não' se movimentar */
+      }
+
+      button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-weight: bold;
+      }
+
+      /* Botão SIM */
+      #btn-sim {
+        background-color: #4caf50; /* Verde */
+        color: white;
+        height: 150px;
+        width: 300px;
+        font-size: 80px;
+        /* APLICANDO A ANIMAÇÃO */
+        animation: pulso 1.5s infinite; /* Nome da animação, duração, infinito */
+      }
+
+      #btn-sim:hover {
+        background-color: #45a049;
+      }
+
+      /* Botão NÃO (com posicionamento absoluto para que possa se mover) */
+      #btn-nao {
+        background-color: #f44336; /* Vermelho */
+        color: white;
+        position: absolute; /* Permite o movimento */
+        top: 125px;
+        left: 60%; /* Posição inicial centralizada */
+        cursor: not-allowed;
+        transform: translateX(
+          calc(-50% + 50px)
+        ); /* Ajuste para centralizar, deixando espaço */
+        transition: all 0.1s ease; /* Transição suave para o movimento */
+      }
+
+      #resultado {
+        margin-top: 40px;
+        font-size: 5em;
+        color: #e91e63;
+        font-weight: bold;
+      }
+
+      /* ====================
+         ANIMAÇÃO BOLHA
+        ==================== */
+      .bubble {
+        opacity: 0;
+        transform: scale(0.6) translateY(40px);
+        animation: bubbleIn 0.8s ease-out forwards;
+      }
+
+      @keyframes bubbleIn {
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="bubble">Gabrielle</h1>
+
+    <!-- CARROSSEL -->
+    <div class="carousel bubble">
+      <div class="carousel-track">
+        <!-- clone da última -->
+        <img src="imgs/img6.jpeg" />
+
+        <!-- imagens reais -->
+        <img src="imgs/img1.jpeg" />
+        <img src="imgs/img2.jpeg" />
+        <img src="imgs/img3.jpeg" />
+        <img src="imgs/img4.jpeg" />
+        <img src="imgs/img5.jpeg" />
+        <img src="imgs/img6.jpeg" />
+        <img src="imgs/img7.jpeg" />
+
+        <!-- clone da primeira -->
+        <img src="imgs/img1.jpeg" />
+      </div>
+    </div>
+
+    <div class="dots bubble" id="dots"></div>
+
+    <!-- CONTADOR -->
+    <div class="contador bubble">
+      💖 Eu te amo há:
+      <span id="tempo"></span>
+    </div>
+
+    <!-- TEXTO LIVRE -->
+    <div class="texto-livre bubble">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus
+        ex sapien vitae pellentesque sem placerat. In id cursus mi pretium
+        tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
+        Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis
+        massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper
+        vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra
+        inceptos himenaeos. <br /><br />
+
+        Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus
+        ex sapien vitae pellentesque sem placerat. In id cursus mi pretium
+        tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
+        Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis
+        massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper
+        vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra
+        inceptos himenaeos. <br /><br />
+
+        Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus
+        ex sapien vitae pellentesque sem placerat. In id cursus mi pretium
+        tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
+        Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis
+        massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper
+        vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra
+        inceptos himenaeos.
+      </p>
+    </div>
+
+    <div class="container bubble">
+      <h1>Quer namorar comigo? ❤️</h1>
+      <div class="botoes bubble">
+        <button id="btn-sim" onclick="respostaSim()">Sim</button>
+        <button id="btn-nao">Não</button>
+      </div>
+      <p id="resultado"></p>
+    </div>
+
+    <script>
+      /* DATA: 22/11/2025 às 20:00 (Horário de Brasília UTC-3) */
+      const dataInicial = new Date("2025-11-22T20:00:00-03:00");
+
+      /* ====================
+   ENTRADA EM BOLHAS
+   ==================== */
+
+      window.addEventListener("load", () => {
+        const bubbles = document.querySelectorAll(".bubble");
+
+        bubbles.forEach((el, index) => {
+          let delay;
+
+          if (index < 4) {
+            // primeiros 3: rápidos
+            delay = index * 0.8; // 0s, 0.2s, 0.4s
+          } else {
+            // restantes: mais lentos
+            delay = 10;
+          }
+
+          el.style.animationDelay = `${delay}s`;
+        });
+      });
+
+      function atualizarContador() {
+        const agora = new Date();
+        let diff = agora - dataInicial;
+
+        if (diff < 0) {
+          document.getElementById("tempo").innerText =
+            "Contando os segundos para o nosso momento ❤️";
+          return;
+        }
+
+        const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+        diff %= 1000 * 60 * 60 * 24;
+
+        const horas = Math.floor(diff / (1000 * 60 * 60));
+        diff %= 1000 * 60 * 60;
+
+        const minutos = Math.floor(diff / (1000 * 60));
+        diff %= 1000 * 60;
+
+        const segundos = Math.floor(diff / 1000);
+
+        document.getElementById("tempo").innerText =
+          `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos`;
+      }
+
+      setInterval(atualizarContador, 1000);
+      atualizarContador();
+
+      /* =====================
+    CARROSSEL LOOP INFINITO SUAVE
+    ===================== */
+
+      const track = document.querySelector(".carousel-track");
+      const slides = document.querySelectorAll(".carousel-track img");
+      const slideWidth = 420;
+
+      let index = 1; // começa no primeiro slide REAL
+      track.style.transform = `translateX(${-slideWidth * index}px)`;
+
+      function proximoSlide() {
+        index++;
+        track.style.transition = "transform 0.8s ease-in-out";
+        track.style.transform = `translateX(${-slideWidth * index}px)`;
+      }
+
+      track.addEventListener("transitionend", () => {
+        // Se passou do último slide REAL, pula invisivelmente para o primeiro
+        if (index === slides.length - 1) {
+          track.style.transition = "none";
+          index = 1;
+          track.style.transform = `translateX(${-slideWidth * index}px)`;
+        }
+
+        // Se voltou antes do primeiro slide REAL
+        if (index === 0) {
+          track.style.transition = "none";
+          index = slides.length - 2;
+          track.style.transform = `translateX(${-slideWidth * index}px)`;
+        }
+      });
+
+      setInterval(proximoSlide, 3500);
+
+      /* CORAÇÕES */
+      function criarCoracao() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 4 + Math.random() * 3 + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 7000);
+      }
+
+      function criarCarinha() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "😍";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 4 + Math.random() * 3 + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 7000);
+      }
+
+      function criarCarinha2() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "🥰";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 4 + Math.random() * 3 + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 7000);
+      }
+
+      setInterval(criarCoracao, 500);
+      setInterval(criarCarinha, 2500);
+      setInterval(criarCarinha2, 5000);
+
+      /* ====================
+           JAVASCRIPT Pedido
+           ==================== */
+      const btnNao = document.getElementById("btn-nao");
+      const botoesContainer = document.querySelector(".botoes");
+      const resultadoTexto = document.getElementById("resultado");
+
+      // FUNÇÃO PRINCIPAL: Faz o botão 'Não' fugir
+      btnNao.addEventListener("mouseover", function () {
+        // Obter as dimensões do container para limitar o movimento
+        const containerRect = botoesContainer.getBoundingClientRect();
+
+        // Gerar novas posições aleatórias
+        // O movimento é limitado dentro do container 'botoes'
+        const newX = Math.random() * (containerRect.width - btnNao.offsetWidth);
+        const newY =
+          Math.random() * (containerRect.height - btnNao.offsetHeight);
+
+        // Aplicar as novas posições
+        btnNao.style.left = `${newX}px`;
+        btnNao.style.top = `${newY}px`;
+      });
+
+      // FUNÇÃO RESPOSTA 'SIM'
+      function respostaSim() {
+        resultadoTexto.textContent = "🥳 EU SABIA! Te amo! ❤️";
+        // Você pode adicionar um redirecionamento ou uma animação mais elaborada aqui.
+        // Exemplo: document.body.style.backgroundColor = '#d4edda';
+        btnNao.style.display = "none"; // Esconde o botão 'Não'
+        document.getElementById("btn-sim").style.backgroundColor = "#008000";
+        document.getElementById("btn-sim").disabled = true;
+        document.getElementById("btn-sim").style.display = "none";
+      }
+
+      // Previne o comportamento padrão do botão 'Não' caso seja clicado rapidamente
+      btnNao.addEventListener("click", (e) => {
+        e.preventDefault();
+        alert("Erro 405 Method Not Allowed - Tente novamente");
+      });
+    </script>
+  </body>
+</html>

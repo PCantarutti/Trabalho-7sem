@@ -1,5 +1,5 @@
 :root {
-  --background: rgb(98, 98, 98);
+  --background: rgb(063, 064, 066);
   --bg-1: #8d8d8d; /* rosa claro */
   --bg-2: #443b3e; /* rosa vivo */
   --card: rgba(255, 255, 255, 0.85);
@@ -25,7 +25,7 @@ body {
   width: min(700px, 92vw);
   padding: 34px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.85);
+  background: #c5c3c6;
   backdrop-filter: blur(var(--glass-blur));
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.12);
   text-align: center;
@@ -49,7 +49,7 @@ input {
   font-size: 16px;
   flex: 1;
   padding: 8px 4px;
-  color: #3b1730;
+  color: black;
 }
 
 .btn-show {
@@ -89,7 +89,7 @@ input {
   border: 0;
   cursor: pointer;
   background: var(--background);
-  color: white;
+  color: #403d39;
   font-weight: 700;
   font-size: 15px;
   transition: all 0.5s;
