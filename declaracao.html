@@ -200,7 +200,7 @@
         background: rgba(255, 255, 255, 0.85);
         border-radius: 15px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        height: 500px;
+        height: 600px;
         width: 60vw;
         margin-bottom: 180px;
       }
@@ -325,15 +325,15 @@
         Meu amor, <br /><br />
 
         você não esperava se apaixonar em 2025 por um cara “aleatório”… mas
-        desde que vi sua foto no Instagram, no Ano Novo, eu
-        soube. Algo em mim dizia que eu precisava tentar ganhar o seu coração.
+        desde que vi sua foto no Instagram, no Ano Novo, eu soube. Algo em mim
+        dizia que eu precisava tentar ganhar o seu coração.
         <br /><br />
 
         Foram meses de receio, de coragem guardada, de vontade contida de puxar
         conversa e te conhecer melhor. Mas no instante em que te vi pela
-        primeira vez pessoalmente, tudo parou. Meu coração desacelerou, meus olhos não
-        conseguiam se afastar de você, e desde então você nunca mais saiu da
-        minha cabeça.<br /><br />
+        primeira vez pessoalmente, tudo parou. Meu coração desacelerou, meus
+        olhos não conseguiam se afastar de você, e desde então você nunca mais
+        saiu da minha cabeça.<br /><br />
 
         Sou imensamente feliz por termos chegado onde estamos hoje. Eu amo o
         tempo que passamos juntos, nossas piadas, nossas conversas profundas
@@ -511,13 +511,32 @@
 
       // FUNÇÃO RESPOSTA 'SIM'
       function respostaSim() {
-        resultadoTexto.textContent = "🥳 Eu sabia! Te amo! ❤️";
-        // Você pode adicionar um redirecionamento ou uma animação mais elaborada aqui.
-        // Exemplo: document.body.style.backgroundColor = '#d4edda';
-        btnNao.style.display = "none"; // Esconde o botão 'Não'
-        document.getElementById("btn-sim").style.backgroundColor = "#008000";
-        document.getElementById("btn-sim").disabled = true;
-        document.getElementById("btn-sim").style.display = "none";
+        // Pega o valor salvo ou começa em 0
+        let cliques = localStorage.getItem("amorClicks");
+        cliques = cliques ? parseInt(cliques) : 0;
+
+        // Incrementa
+        cliques++;
+
+        // Salva novamente
+        localStorage.setItem("amorClicks", cliques);
+
+        // Mostra o resultado
+        resultadoTexto.innerHTML = `
+      🥳 Eu sabia! Te amo! ❤️ <br>
+      <span style="font-size: 0.5em;">
+        Você reafirmou nosso amor ${cliques} ${cliques === 1 ? "vez" : "vezes"} 💖
+      </span>
+    `;
+
+        // Esconde o botão "Não"
+        btnNao.style.display = "none";
+
+        // Desativa e esconde o botão "Sim"
+        const btnSim = document.getElementById("btn-sim");
+        btnSim.style.backgroundColor = "#008000";
+        btnSim.disabled = true;
+        btnSim.style.display = "none";
       }
 
       // Previne o comportamento padrão do botão 'Não' caso seja clicado rapidamente
@@ -528,8 +547,3 @@
     </script>
   </body>
 </html>
-
-
-
-
-
