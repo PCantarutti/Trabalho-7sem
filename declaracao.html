@@ -493,6 +493,64 @@
       const btnNao = document.getElementById("btn-nao");
       const botoesContainer = document.querySelector(".botoes");
       const resultadoTexto = document.getElementById("resultado");
+      // TODO: preencha com dados reais. Evite expor tokens públicos em produção.
+      const storageConfig = {
+        owner: "SEU_USUARIO",
+        repo: "SEU_REPO",
+        path: "amor-cliques.json",
+        branch: "main",
+        token: "SEU_TOKEN_GITHUB",
+      };
+
+      async function carregarCliquesNaNuvem() {
+        const url = `https://api.github.com/repos/${storageConfig.owner}/${storageConfig.repo}/contents/${storageConfig.path}?ref=${storageConfig.branch}`;
+        const resposta = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${storageConfig.token}`,
+            Accept: "application/vnd.github+json",
+          },
+        });
+
+        if (resposta.status === 404) {
+          return { cliques: 0, sha: null };
+        }
+
+        if (!resposta.ok) {
+          throw new Error("Erro ao carregar cliques na nuvem.");
+        }
+
+        const dados = await resposta.json();
+        const conteudo = JSON.parse(atob(dados.content));
+        const cliques = Number(conteudo.amorClicks || 0);
+        return { cliques, sha: dados.sha };
+      }
+
+      async function salvarCliquesNaNuvem(cliques, sha) {
+        const url = `https://api.github.com/repos/${storageConfig.owner}/${storageConfig.repo}/contents/${storageConfig.path}`;
+        const body = {
+          message: "Atualiza contador de cliques do botão Sim",
+          content: btoa(JSON.stringify({ amorClicks: cliques }, null, 2)),
+          branch: storageConfig.branch,
+          sha,
+        };
+
+        const resposta = await fetch(url, {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${storageConfig.token}`,
+            Accept: "application/vnd.github+json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+
+        if (!resposta.ok) {
+          throw new Error("Erro ao salvar cliques na nuvem.");
+        }
+
+        const dados = await resposta.json();
+        return dados.content?.sha || sha;
+      }
 
       // FUNÇÃO PRINCIPAL: Faz o botão 'Não' fugir
       btnNao.addEventListener("mouseover", function () {
@@ -511,18 +569,31 @@
       });
 
       // FUNÇÃO RESPOSTA 'SIM'
-      function respostaSim() {
-        // Pega o valor salvo ou começa em 0
-        let cliques = localStorage.getItem("amorClicks");
-        cliques = cliques ? parseInt(cliques) : 0;
+      async function respostaSim() {
+        const btnSim = document.getElementById("btn-sim");
+        btnSim.disabled = true;
 
-        // Incrementa
+        let cliques = 0;
+        let sha = null;
+
+        try {
+          const dados = await carregarCliquesNaNuvem();
+          cliques = dados.cliques;
+          sha = dados.sha;
+        } catch (erro) {
+          let cliquesLocal = localStorage.getItem("amorClicks");
+          cliquesLocal = cliquesLocal ? parseInt(cliquesLocal) : 0;
+          cliques = cliquesLocal;
+        }
+
         cliques++;
 
-        // Salva novamente
-        localStorage.setItem("amorClicks", cliques);
+        try {
+          sha = await salvarCliquesNaNuvem(cliques, sha);
+        } catch (erro) {
+          localStorage.setItem("amorClicks", cliques);
+        }
 
-        // Mostra o resultado
         resultadoTexto.innerHTML = `
       🥳 Eu sabia! Te amo! ❤️ <br>
       <span style="font-size: 0.5em;">
@@ -530,13 +601,8 @@
       </span>
     `;
 
-        // Esconde o botão "Não"
         btnNao.style.display = "none";
-
-        // Desativa e esconde o botão "Sim"
-        const btnSim = document.getElementById("btn-sim");
         btnSim.style.backgroundColor = "#008000";
-        btnSim.disabled = true;
         btnSim.style.display = "none";
       }
 
